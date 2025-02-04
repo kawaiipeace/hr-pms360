@@ -1,0 +1,16 @@
+# Use the official Baserow image
+FROM baserow/baserow:latest
+
+# Set environment variables for PostgreSQL connection
+# ENV DATABASE_HOST=db
+# ENV DATABASE_NAME=baserow
+# ENV DATABASE_USER=baserow
+# ENV DATABASE_PASSWORD=123456789
+# ENV DATABASE_PORT=13000
+# ENV BASEROW_PUBLIC_URL=http://localhost:80
+
+# Expose the necessary ports
+EXPOSE 80
+
+# Start Baserow
+CMD ["start"]

@@ -1,0 +1,62 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pms360-backend
+    depends_on:
+      - db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_PORT: ${DATABASE_PORT}
+      BASEROW_PUBLIC_URL: ${BASEROW_PUBLIC_URL}
+    ports:
+      - "${BACKEND_PORT}:80"
+    volumes:
+      - baserow_data:/baserow/data
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: pms360-db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:5432"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: pms360-frontend
+    depends_on:
+      - backend
+      - db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    ports:
+      - "${FRONTEND_PORT}:3000"
+
+volumes:
+  postgres_data:
+  baserow_data:
+
+networks:
+  pms360-network:
+    driver: bridge

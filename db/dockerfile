@@ -1,0 +1,43 @@
+FROM postgres:17
+
+LABEL author="Peace"
+LABEL description="HR-PMS360"
+LABEL version="1.0"
+
+# ENV POSTGRES_PASSWORD=123456789
+# ENV POSTGRES_DB=pms360
+
+RUN localedef -i th_TH -c -f UTF-8 -A /usr/share/locale/locale.alias th_TH.UTF-8
+ENV LANG=th_TH.utf8
+ENV USE_PGXS=1
+ENV TZ=Asia/Bangkok
+
+RUN apt-get update && \
+    apt-get install -y postgresql-server-dev-17 postgresql-17-cron make gcc git curl libkrb5-dev && \
+    apt-get clean
+
+RUN git clone --branch main https://github.com/pgaudit/pgaudit.git /tmp/pgaudit && \
+    cd /tmp/pgaudit && \
+    make && \
+    make install && \
+    rm -rf /tmp/pgaudit
+
+RUN echo "shared_preload_libraries = 'pgaudit'" >> /usr/share/postgresql/postgresql.conf.sample
+
+RUN echo "shared_preload_libraries = 'pg_cron'" >> /var/lib/postgresql/data/postgresql.conf
+
+EXPOSE 5432
+
+CMD ["postgres"]
+
+# COPY ./vms_fcms.sql /docker-entrypoint-initdb.d/
+
+# TO BUILD AND RUN DOCKER
+# docker build -t pms360-db .
+# docker run -d --name pms360-db -p 13000:5432 -v ./backup:/backups pms360-db
+
+# TO DUMP (EXPORT) SQL
+# docker exec pms360-db pg_dump -h localhost -U postgres pms360 > pms360.sql
+
+# TO RESTORE SQL
+# docker exec pms360-db pg_restore -h "localhost" -U postgres -d pms360 ./backups/pms360.backup
