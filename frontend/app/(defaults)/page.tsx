@@ -1,12 +1,13 @@
 import { Metadata } from 'next';
 import React from 'react';
+import Dashboard from '@/components/dashboard';
 
 export const metadata: Metadata = {
-    title: 'Sales Admin',
+    title: 'หน้าหลัก',
 };
 
-const Sales = () => {
-    return <div>starter page</div>;
+const Dashboard_main = () => {
+    return <Dashboard />;
 };
 
-export default Sales;
+export default Dashboard_main;

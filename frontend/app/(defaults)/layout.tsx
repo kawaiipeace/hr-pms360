@@ -16,10 +16,6 @@ export default function DefaultLayout({ children }: { children: React.ReactNode 
                 <Overlay />
                 <ScrollToTop />
 
-                {/* BEGIN APP SETTING LAUNCHER */}
-                <Setting />
-                {/* END APP SETTING LAUNCHER */}
-
                 <MainContainer>
                     {/* BEGIN SIDEBAR */}
                     <Sidebar />

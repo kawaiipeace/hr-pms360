@@ -2,25 +2,25 @@ import ProviderComponent from '@/components/layouts/provider-component';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../styles/tailwind.css';
 import { Metadata } from 'next';
-import { Nunito } from 'next/font/google';
+import { Noto_Sans_Thai } from 'next/font/google';
 
 export const metadata: Metadata = {
     title: {
-        template: '%s | VRISTO - Multipurpose Tailwind Dashboard Template',
-        default: 'VRISTO - Multipurpose Tailwind Dashboard Template',
+        template: '%s | ระบบจัดการบัตรเติมน้ำมัน (VMS-FCMS)',
+        default: 'ระบบจัดการบัตรเติมน้ำมัน (VMS-FCMS)',
     },
 };
-const nunito = Nunito({
+const noto = Noto_Sans_Thai({
     weight: ['400', '500', '600', '700', '800'],
-    subsets: ['latin'],
+    subsets: ['thai'],
     display: 'swap',
-    variable: '--font-nunito',
+    variable: '--font-Noto_Sans_Thai',
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
-            <body className={nunito.variable}>
+        <html lang="th">
+            <body className={noto.variable}>
                 <ProviderComponent>{children}</ProviderComponent>
             </body>
         </html>

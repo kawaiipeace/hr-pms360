@@ -1,8 +1,8 @@
 const path = require('path');
-const supportedLngs = ['da', 'de', 'el', 'en', 'es', 'fr', 'hu', 'it', 'ja', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'ae'];
+const supportedLngs = ['en', 'th'];
 import themeConfig from 'theme.config';
 export const ni18nConfig = {
-    fallbackLng: [themeConfig.locale || 'en'],
+    fallbackLng: [themeConfig.locale || 'th'],
     supportedLngs,
     ns: ['translation'],
     react: { useSuspense: false },

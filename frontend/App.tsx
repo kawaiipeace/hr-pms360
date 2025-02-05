@@ -5,6 +5,7 @@ import { IRootState } from '@/store';
 import { toggleRTL, toggleTheme, toggleMenu, toggleLayout, toggleAnimation, toggleNavbar, toggleSemidark } from '@/store/themeConfigSlice';
 import Loading from '@/components/layouts/loading';
 import { getTranslation } from '@/i18n';
+import { MantineProvider } from '@mantine/core';
 
 function App({ children }: PropsWithChildren) {
     const themeConfig = useSelector((state: IRootState) => state.themeConfig);
@@ -27,13 +28,15 @@ function App({ children }: PropsWithChildren) {
     }, [dispatch, initLocale, themeConfig.theme, themeConfig.menu, themeConfig.layout, themeConfig.rtlClass, themeConfig.animation, themeConfig.navbar, themeConfig.locale, themeConfig.semidark]);
 
     return (
+        <MantineProvider>
         <div
             className={`${(themeConfig.sidebar && 'toggle-sidebar') || ''} ${themeConfig.menu} ${themeConfig.layout} ${
                 themeConfig.rtlClass
-            } main-section relative font-nunito text-sm font-normal antialiased`}
+            } main-section relative font-noto text-sm font-normal antialiased`}
         >
             {isLoading ? <Loading /> : children}
         </div>
+        </MantineProvider>
     );
 }
 
