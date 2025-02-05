@@ -11,6 +11,7 @@ RUN localedef -i th_TH -c -f UTF-8 -A /usr/share/locale/locale.alias th_TH.UTF-8
 ENV LANG=th_TH.utf8
 ENV USE_PGXS=1
 ENV TZ=Asia/Bangkok
+ENV PG_INITDB_OPTS "--locale=C --encoding=UTF8"
 
 RUN apt-get update && \
     apt-get install -y postgresql-server-dev-17 postgresql-17-cron make gcc git curl libkrb5-dev && \
