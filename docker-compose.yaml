@@ -12,9 +12,11 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${DATABASE_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      pms360-network:
   backend:
     build:
       context: ./backend
@@ -30,13 +32,15 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_PORT: 5432
       BASEROW_PUBLIC_URL: ${BASEROW_PUBLIC_URL}
     ports:
       - "${BACKEND_PORT}:80"
     volumes:
       - baserow_data:/baserow/data
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      pms360-network:
   frontend:
     build:
       context: ./frontend
@@ -52,10 +56,14 @@ services:
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     ports:
       - "${FRONTEND_PORT}:3000"
+    networks:
+      pms360-network:
 
 volumes:
   postgres_data:
+    driver: local
   baserow_data:
+    driver: local
 
 networks:
   pms360-network:
