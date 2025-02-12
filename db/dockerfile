@@ -23,8 +23,8 @@ RUN git clone --branch main https://github.com/pgaudit/pgaudit.git /tmp/pgaudit 
     make install && \
     rm -rf /tmp/pgaudit
 
-RUN chown -R postgres:postgres /var/lib/postgresql/data
-RUN chmod 755 /var/lib/postgresql/data
+# RUN chown -R postgres:postgres /var/lib/postgresql/data
+# RUN chmod 755 /var/lib/postgresql/data
 
 # RUN echo "shared_preload_libraries = 'pgaudit'" >> /usr/share/postgresql/postgresql.conf.sample
 
